@@ -1,0 +1,25 @@
+RewriteEngine On
+RewriteBase /newshd/
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Block direct access to sensitive folders
+RewriteRule ^(config|includes|database)/ - [F,L]
+
+# Clean article URLs: /article/slug-here
+RewriteRule ^article/([a-z0-9-]+)/?$ article.php?slug=$1 [L,QSA]
+
+# Clean category URLs: /category/slug-here
+RewriteRule ^category/([a-z0-9-]+)/?$ category.php?slug=$1 [L,QSA]
+
+# Sitemap
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# Prevent directory listing
+Options -Indexes

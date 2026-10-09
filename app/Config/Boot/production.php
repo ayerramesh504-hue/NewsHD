@@ -1,0 +1,13 @@
+<?php
+
+
+ // ERROR DISPLAY
+
+error_reporting(E_ALL & ~E_DEPRECATED);
+
+ini_set('display_errors', '1');
+
+
+  //DEBUG MODE
+ 
+defined('CI_DEBUG') || define('CI_DEBUG', false);
